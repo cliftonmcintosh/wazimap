@@ -193,8 +193,13 @@ def merge_dicts(this, other, other_key):
         if key in MERGE_KEYS:
             if key in other:
                 values[other_key] = other[key]['this']
+            else:
+                values[other_key] = None
         elif isinstance(values, dict):
-            merge_dicts(values, other[key], other_key)
+            if key in other:
+                merge_dicts(values, other[key], other_key)
+            else:
+                values[other_key] = None
 
 
 def group_remainder(data, num_items=4, make_percentage=True,
