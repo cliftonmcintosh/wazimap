@@ -190,16 +190,14 @@ def merge_dicts(this, other, other_key):
     it merges the leaf nodes specified in MERGE_KEYS.
     '''
     for key, values in this.iteritems():
-        if key in MERGE_KEYS:
-            if key in other:
+        if key in other:
+            if key in MERGE_KEYS:
                 values[other_key] = other[key]['this']
-            else:
-                values[other_key] = None
-        elif isinstance(values, dict):
-            if key in other:
+
+            elif isinstance(values, dict):
                 merge_dicts(values, other[key], other_key)
-            else:
-                values[other_key] = None
+        else:
+            values[other_key] = None
 
 
 def group_remainder(data, num_items=4, make_percentage=True,
